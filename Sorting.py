@@ -2,9 +2,9 @@ def BubbleSort(a_list):
     n = len(a_list)
     for k in range(1, n):
         for i in range(0, n - k):
-            if a_list[i] > a_list[i+1]:
+            if a_list[i] < a_list[i+1]:
                 tmp = a_list[i]
-                a_list[i]
+                a_list[i] = a_list[i+1]
                 a_list[i+1] = tmp
     return a_list
 
@@ -55,7 +55,7 @@ def InsertionSort(a_list):
     return a_list
 
 def MergeSort(a_list):
-    n = len[a_list]
+    n = len(a_list)
 
     if n < 2:
         return a_list
@@ -94,7 +94,7 @@ def QuickSort_partition(a_list, start, end):
 
     pivot = a_list[end]
 
-    for i in ragne(start, end):
+    for i in range(start, end):
         if a_list[i] <= pivot:
             temp = a_list[i]
             a_list[i] = a_list[pIndex]
