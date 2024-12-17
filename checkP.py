@@ -11,7 +11,7 @@ with open('outputP.txt', 'r', encoding='utf-8') as fin:
 def measure_sort_time(sort_function, data, *args):
     start = time.time()
     sort_function(data, *args)
-    return (time.time() - start) * 10**3
+    return (time.time() - start) * 10
 
 if __name__ == '__main__':
     algorithms = [
@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     for name, func, *args in algorithms:
         time_taken = measure_sort_time(func, *args)
-        print(f"{name} ใช้เวลาทั้งหมด {time_taken:.2f} มิลลิวินาที\n")
+        print(f"{name} ใช้เวลาทั้งหมด {time_taken:.2f} วินาที\n")
         total_time.append((time_taken, name))
 
     # เรียงเวลาและให้ผู้ใช้เพิ่มชื่ออัลกอริทึม
