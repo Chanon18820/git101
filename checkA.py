@@ -3,96 +3,48 @@ import Sorting as mi
 import sys
 sys.setrecursionlimit(10**6)
 
-with open('outputA.txt', 'r',encoding='utf-8') as fin:
-    all_records = []
+# อ่านไฟล์และจัดการข้อมูล
+with open('outputA.txt', 'r', encoding='utf-8') as fin:
+    all_records = [' '.join(record.strip().split()) for record in fin if record.strip()]
 
-    for record in fin:
-        record = record.strip()
-        if not record:
-            continue
-
-        data = record.split()
-        new_record = ' '.join(data)
-        all_records.append(new_record)
+# ฟังก์ชันวัดเวลาการทำงานของอัลกอริทึมการเรียงลำดับ
+def measure_sort_time(sort_function, data, *args):
+    start = time.time()
+    sort_function(data, *args)
+    return (time.time() - start) * 10**3
 
 if __name__ == '__main__':
-    bu = list(all_records)
-    In = list(all_records)
-    se = list(all_records)
-    me = list(all_records)
-    qu = list(all_records)
+    algorithms = [
+        ("BubbleSort", mi.BubbleSort, list(all_records)),
+        ("InsertionSort", mi.InsertionSort, list(all_records)),
+        ("SelectionSort", mi.SelectionSort, list(all_records)),
+        ("MergeSort", mi.MergeSort, list(all_records)),
+        ("QuickSort", mi.QuickSort, list(all_records), 0, len(all_records) - 1)
+    ]
 
-    start_B = time.time()
-    mi.BubbleSort(bu)
-    end_B = time.time()
-    b = (end_B-start_B) * 10**3
-    print ("เวลาทั้งหมด",b,"มิลลิวินาที")
-    time_bu = b
-    print()
-                              
-    start_I = time.time()
-    mi.InsertionSort(In)
-    end_I = time.time()
-    i = (end_I-start_I) * 10**3
-    print ("เวลาทั้งหมด",i,"มิลลิวินาที")
-    time_in = i
-    print()
+    total_time = []
 
-    start_S = time.time()
-    mi.SelectionSort(se)
-    end_S = time.time()
-    s = (end_S-start_S) * 10**3
-    print ("เวลาทั้งหมด",s,"มิลลิวินาที")
-    time_se = s
-    print()
+    for name, func, *args in algorithms:
+        time_taken = measure_sort_time(func, *args)
+        print(f"{name} ใช้เวลาทั้งหมด {time_taken:.2f} มิลลิวินาที\n")
+        total_time.append((time_taken, name))
 
-    start_M = time.time()
-    mi.MergeSort(me)
-    end_M = time.time()
-    m = (end_M-start_M) * 10**3
-    print ("เวลาทั้งหมด",m,"มิลลิวินาที")
-    time_me = m
-    print()
+    # เรียงเวลาและให้ผู้ใช้เพิ่มชื่ออัลกอริทึม
+    total_time.sort()
 
-    start_Q = time.time()
-    mi.QuickSort(qu,0, len(qu)-1)
-    end_Q = time.time()
-    q = (end_Q-start_Q) * 10**3
-    print ("เวลาทั้งหมด",q,"มิลลิวินาที")
-    time_qu = q
-    print()
+    for i, (time_val, name) in enumerate(total_time):
+        new_name = input(f"กรุณาใส่ชื่อ Algorithm สำหรับ {name} = ")
+        total_time[i] = (time_val, f"{time_val:.2f} {new_name}")
 
-    total_time = [time_bu, time_in, time_se, time_me, time_qu]
+    # แสดงผลลัพธ์
+    print("\nเรียงเวลาที่ Algorithm ใช้เวลาในการทำจากน้อยไปมาก:")
+    for time_val, name in total_time:
+        print(name)
 
-    mi.BubbleSortA(total_time)
+    print(f"\nใช้เวลามากสุด: {total_time[-1][1]}")
+    print(f"ใช้เวลาน้อยสุด: {total_time[0][1]}")
+    print(f"ใช้เวลากลางๆ: {total_time[len(total_time)//2][1]}")
 
-    print(total_time[0])
-    a = input("กรุณาใส่ชื่อ Algorithm =")
-    total_time[0] = f"{total_time[0]}{a}"
-
-    print(total_time[1])
-    b = input("กรุณาใส่ชื่อ Algorithm =")
-    total_time[1] = f"{total_time[1]}{b}"
-
-    print(total_time[2])
-    c = input("กรุณาใส่ชื่อ Algorithm =")
-    total_time[2] = f"{total_time[2]}{c}"
-
-    print(total_time[3])
-    d = input("กรุณาใส่ชื่อ Algorithm =")
-    total_time[3] = f"{total_time[3]}{d}"
-
-    print(total_time[4])
-    e = input("กรุณาใส่ชื่อ Algorithm =")
-    total_time[4] = f"{total_time[4]}{e}"
-
-    print("เรียงเวลาที่ Algorithm ใช้เวลาในการทำจาก น้อยไปมาก", total_time)
-    print()
-    print("ใช้เวลามากสุด", total_time[-1])
-    print()
-    print("ใช้เวลาน้อยสุด", total_time[0])
-    print()
-    print("ใช้เวลากลางๆ", total_time[2])
     
 
 
