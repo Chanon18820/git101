@@ -26,7 +26,11 @@ if __name__ == '__main__':
 
     for name, func, *args in algorithms:
         time_taken = measure_sort_time(func, *args)
+<<<<<<< Updated upstream
         print(f"{name} ใช้เวลาทั้งหมด {time_taken:.2f} วินาที\n")
+=======
+        print(f"{name} ใช้เวลาทั้งหมด {time_taken:.2f} มิลลิวินาที\n")
+>>>>>>> Stashed changes
         total_time.append((time_taken, name))
 
     # เรียงเวลาและให้ผู้ใช้เพิ่มชื่ออัลกอริทึม
@@ -43,9 +47,13 @@ if __name__ == '__main__':
 
     print(f"\nใช้เวลามากสุด: {total_time[-1][1]}")
     print(f"ใช้เวลาน้อยสุด: {total_time[0][1]}")
+<<<<<<< Updated upstream
     print(f"ใช้เวลากลางๆ: {total_time[len(total_time)//2][1]}")
 
     
 
 
 
+=======
+    print(f"ใช้เวลากลางๆ: {total_time[len(total_time)//2][1]}")
+>>>>>>> Stashed changes
